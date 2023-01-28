@@ -8,6 +8,20 @@ These instructions will give you a copy of the project up and running on
 your local machine for development and testing purposes. See deployment
 for notes on deploying the project on a live system.
 
+See [the API Doc for extended details](./API.md)
+
+`npm install aws-cdk-split-horizon-dns`
+Then in your code:
+```js
+import { SplitHorizonDns } from 'aws-cdk-split-horizon-dns'
+
+new SplitHorizonDns(scope, 'MyDNS', {
+  zoneName: 'example.com',
+  privateZoneVpcs: [vpc],
+  targets: [],
+})
+```
+
 ### Prerequisites
 
 Requirements for the software and other tools to build, test and push 
@@ -30,25 +44,6 @@ And repeat
 End with an example of getting some data out of the system or using it
 for a little demo
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Sample Tests
-
-Explain what these tests test and why
-
-    Give an example
-
-### Style test
-
-Checks if the best practices and the right coding style has been used.
-
-    Give an example
-
-## Deployment
-
-Add additional notes to deploy this on a live system
 
 ## Built With
 
@@ -56,6 +51,9 @@ Add additional notes to deploy this on a live system
     for the Code of Conduct
   - [Creative Commons](https://creativecommons.org/) - Used to choose
     the license
+  - [projen]()
+  - [CDK]
+
 
 ## Contributing
 
