@@ -40,7 +40,7 @@ export class SplitHorizonDns extends Construct {
       includeCertificate,
       certAlternateNames,
       privateZoneVpcs,
-      // targets,
+      targets,
     } = props;
 
     this.publicZone = new route53.HostedZone(this, 'PublicZone', {
