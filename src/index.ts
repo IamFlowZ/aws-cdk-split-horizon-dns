@@ -10,14 +10,14 @@ const isAliasRecordTarget = (value: route53.IAliasRecordTarget | Array<string>):
 
 type ARecordArray = Array<route53.ARecord>;
 
-export type AliasTarget = {
-  target: route53.IAliasRecordTarget | Array<string>;
-  private?: boolean;
-  public?: boolean;
-  ttl?: cdk.Duration;
+export interface AliasTarget {
+  readonly target: route53.IAliasRecordTarget | Array<string>;
+  readonly private?: boolean;
+  readonly public?: boolean;
+  readonly ttl?: cdk.Duration;
 }
 
-export interface SplitHorizonDnsProps {
+export interface ISplitHorizonDnsProps {
   readonly zoneName: string;
   readonly certAlternateNames?: Array<string>;
   readonly privateZoneVpcs: Array<ec2.Vpc>;
@@ -32,7 +32,7 @@ export class SplitHorizonDns extends Construct {
 
   public records: Array<ARecordArray>;
 
-  constructor(scope: Construct, id: string, props: SplitHorizonDnsProps) {
+  constructor(scope: Construct, id: string, props: ISplitHorizonDnsProps) {
     super(scope, id);
 
     const {

@@ -9,14 +9,14 @@
 ```typescript
 import { SplitHorizonDns } from 'aws-cdk-split-horizon-dns'
 
-new SplitHorizonDns(scope: Construct, id: string, props: SplitHorizonDnsProps)
+new SplitHorizonDns(scope: Construct, id: string, props: ISplitHorizonDnsProps)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.Initializer.parameter.props">props</a></code> | <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDnsProps">SplitHorizonDnsProps</a></code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.Initializer.parameter.props">props</a></code> | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps">ISplitHorizonDnsProps</a></code> | *No description.* |
 
 ---
 
@@ -34,7 +34,7 @@ new SplitHorizonDns(scope: Construct, id: string, props: SplitHorizonDnsProps)
 
 ##### `props`<sup>Required</sup> <a name="props" id="aws-cdk-split-horizon-dns.SplitHorizonDns.Initializer.parameter.props"></a>
 
-- *Type:* <a href="#aws-cdk-split-horizon-dns.SplitHorizonDnsProps">SplitHorizonDnsProps</a>
+- *Type:* <a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps">ISplitHorizonDnsProps</a>
 
 ---
 
@@ -87,6 +87,7 @@ Any object.
 | <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.privateZone">privateZone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.publicZone">publicZone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.records">records</a></code> | <code>aws-cdk-lib.aws_route53.ARecord[][]</code> | *No description.* |
 
 ---
 
@@ -122,31 +123,101 @@ public readonly publicZone: HostedZone;
 
 ---
 
+##### `records`<sup>Required</sup> <a name="records" id="aws-cdk-split-horizon-dns.SplitHorizonDns.property.records"></a>
+
+```typescript
+public readonly records: ARecord[][];
+```
+
+- *Type:* aws-cdk-lib.aws_route53.ARecord[][]
+
+---
+
 
 ## Structs <a name="Structs" id="Structs"></a>
 
-### SplitHorizonDnsProps <a name="SplitHorizonDnsProps" id="aws-cdk-split-horizon-dns.SplitHorizonDnsProps"></a>
+### AliasTarget <a name="AliasTarget" id="aws-cdk-split-horizon-dns.AliasTarget"></a>
 
-#### Initializer <a name="Initializer" id="aws-cdk-split-horizon-dns.SplitHorizonDnsProps.Initializer"></a>
+#### Initializer <a name="Initializer" id="aws-cdk-split-horizon-dns.AliasTarget.Initializer"></a>
 
 ```typescript
-import { SplitHorizonDnsProps } from 'aws-cdk-split-horizon-dns'
+import { AliasTarget } from 'aws-cdk-split-horizon-dns'
 
-const splitHorizonDnsProps: SplitHorizonDnsProps = { ... }
+const aliasTarget: AliasTarget = { ... }
 ```
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDnsProps.property.privateZoneVpcs">privateZoneVpcs</a></code> | <code>aws-cdk-lib.aws_ec2.Vpc[]</code> | *No description.* |
-| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDnsProps.property.zoneName">zoneName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDnsProps.property.certAlternateNames">certAlternateNames</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDnsProps.property.includeCertificate">includeCertificate</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.AliasTarget.property.target">target</a></code> | <code>aws-cdk-lib.aws_route53.IAliasRecordTarget \| string[]</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.AliasTarget.property.private">private</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.AliasTarget.property.public">public</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.AliasTarget.property.ttl">ttl</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
 
 ---
 
-##### `privateZoneVpcs`<sup>Required</sup> <a name="privateZoneVpcs" id="aws-cdk-split-horizon-dns.SplitHorizonDnsProps.property.privateZoneVpcs"></a>
+##### `target`<sup>Required</sup> <a name="target" id="aws-cdk-split-horizon-dns.AliasTarget.property.target"></a>
+
+```typescript
+public readonly target: IAliasRecordTarget | string[];
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IAliasRecordTarget | string[]
+
+---
+
+##### `private`<sup>Optional</sup> <a name="private" id="aws-cdk-split-horizon-dns.AliasTarget.property.private"></a>
+
+```typescript
+public readonly private: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `public`<sup>Optional</sup> <a name="public" id="aws-cdk-split-horizon-dns.AliasTarget.property.public"></a>
+
+```typescript
+public readonly public: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `ttl`<sup>Optional</sup> <a name="ttl" id="aws-cdk-split-horizon-dns.AliasTarget.property.ttl"></a>
+
+```typescript
+public readonly ttl: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+
+---
+
+
+## Protocols <a name="Protocols" id="Protocols"></a>
+
+### ISplitHorizonDnsProps <a name="ISplitHorizonDnsProps" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps"></a>
+
+- *Implemented By:* <a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps">ISplitHorizonDnsProps</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.privateZoneVpcs">privateZoneVpcs</a></code> | <code>aws-cdk-lib.aws_ec2.Vpc[]</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.targets">targets</a></code> | <code><a href="#aws-cdk-split-horizon-dns.AliasTarget">AliasTarget</a>[]</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.zoneName">zoneName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.certAlternateNames">certAlternateNames</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.includeCertificate">includeCertificate</a></code> | <code>boolean</code> | *No description.* |
+
+---
+
+##### `privateZoneVpcs`<sup>Required</sup> <a name="privateZoneVpcs" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.privateZoneVpcs"></a>
 
 ```typescript
 public readonly privateZoneVpcs: Vpc[];
@@ -156,7 +227,17 @@ public readonly privateZoneVpcs: Vpc[];
 
 ---
 
-##### `zoneName`<sup>Required</sup> <a name="zoneName" id="aws-cdk-split-horizon-dns.SplitHorizonDnsProps.property.zoneName"></a>
+##### `targets`<sup>Required</sup> <a name="targets" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.targets"></a>
+
+```typescript
+public readonly targets: AliasTarget[];
+```
+
+- *Type:* <a href="#aws-cdk-split-horizon-dns.AliasTarget">AliasTarget</a>[]
+
+---
+
+##### `zoneName`<sup>Required</sup> <a name="zoneName" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.zoneName"></a>
 
 ```typescript
 public readonly zoneName: string;
@@ -166,7 +247,7 @@ public readonly zoneName: string;
 
 ---
 
-##### `certAlternateNames`<sup>Optional</sup> <a name="certAlternateNames" id="aws-cdk-split-horizon-dns.SplitHorizonDnsProps.property.certAlternateNames"></a>
+##### `certAlternateNames`<sup>Optional</sup> <a name="certAlternateNames" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.certAlternateNames"></a>
 
 ```typescript
 public readonly certAlternateNames: string[];
@@ -176,7 +257,7 @@ public readonly certAlternateNames: string[];
 
 ---
 
-##### `includeCertificate`<sup>Optional</sup> <a name="includeCertificate" id="aws-cdk-split-horizon-dns.SplitHorizonDnsProps.property.includeCertificate"></a>
+##### `includeCertificate`<sup>Optional</sup> <a name="includeCertificate" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.includeCertificate"></a>
 
 ```typescript
 public readonly includeCertificate: boolean;
@@ -185,6 +266,4 @@ public readonly includeCertificate: boolean;
 - *Type:* boolean
 
 ---
-
-
 
