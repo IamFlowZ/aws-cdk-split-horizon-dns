@@ -12,21 +12,36 @@ See [the API Doc for extended details](./API.md)
 
 `npm install aws-cdk-split-horizon-dns`
 Then in your code:
-```js
-import { SplitHorizonDns } from 'aws-cdk-split-horizon-dns'
+```ts
+import { SplitHorizonDns, AliasTarget } from 'aws-cdk-split-horizon-dns'
+
+const firstTarget: AliasTarget = {
+  target: [googleDns],
+  private: true,
+};
+
+const bucketWebsite = new s3.Bucket(stack, 'BucketWebsite', {
+  bucketName: exampleDomain, // www.example.com
+  publicReadAccess: true,
+  websiteIndexDocument: 'index.html',
+});
+
+const constructTarget: AliasTarget = {
+  target: new targets.BucketWebsiteTarget(bucketWebsite),
+  public: true,
+};
 
 new SplitHorizonDns(scope, 'MyDNS', {
   zoneName: 'example.com',
   privateZoneVpcs: [vpc],
-  targets: [],
+  targets: [constructTarget, firstTarget],
 })
 ```
 
 ### Prerequisites
 
 Requirements for the software and other tools to build, test and push 
-- [Example 1](https://www.example.com)
-- [Example 2](https://www.example.com)
+- [aws-cdk](https://www.example.com)
 
 ### Installing
 
@@ -52,7 +67,7 @@ for a little demo
   - [Creative Commons](https://creativecommons.org/) - Used to choose
     the license
   - [projen]()
-  - [CDK]
+  - [CDK]()
 
 
 ## Contributing
