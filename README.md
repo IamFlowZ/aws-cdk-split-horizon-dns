@@ -16,7 +16,7 @@ Then in your code:
 import { SplitHorizonDns, AliasTarget } from 'aws-cdk-split-horizon-dns'
 
 const firstTarget: AliasTarget = {
-  target: [googleDns],
+  target: ['8.8.8.8'],
   private: true,
 };
 
