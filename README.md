@@ -9,6 +9,7 @@ your local machine for development and testing purposes. See deployment
 for notes on deploying the project on a live system.
 
 See [the API Doc for extended details](./API.md)
+Also see unit tests for extended usage details.
 
 `npm install aws-cdk-split-horizon-dns`
 Then in your code:
@@ -43,31 +44,14 @@ new SplitHorizonDns(scope, 'MyDNS', {
 Requirements for the software and other tools to build, test and push 
 - [aws-cdk](https://www.example.com)
 
-### Installing
-
-A step by step series of examples that tell you how to get a development
-environment running
-
-Say what the step will be
-
-    Give the example
-
-And repeat
-
-    until finished
-
-End with an example of getting some data out of the system or using it
-for a little demo
-
-
 ## Built With
 
   - [Contributor Covenant](https://www.contributor-covenant.org/) - Used
     for the Code of Conduct
   - [Creative Commons](https://creativecommons.org/) - Used to choose
     the license
-  - [projen]()
-  - [CDK]()
+  - [projen](https://github.com/projen/projen)
+  - [CDK](https://aws.amazon.com/cdk/)
 
 
 ## Contributing
@@ -89,7 +73,7 @@ repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
     [IamFlowz](https://github.com/IamFlowz)
 
 See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
+[contributors](https://github.com/iamflowz/aws-cdk-dns-split-horizon/contributors)
 who participated in this project.
 
 ## License
@@ -97,7 +81,3 @@ who participated in this project.
 Apache. See [LICENSE](./LICENSE)
 
 ## Acknowledgments
-
-  - Hat tip to anyone whose code is used
-  - Inspiration
-  - etc
