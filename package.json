@@ -61,7 +61,7 @@
     "constructs": "^10.0.5"
   },
   "keywords": [
-    "cdk"
+    "cdk", "dns", "aws", "route53"
   ],
   "main": "lib/index.js",
   "license": "Apache-2.0",
