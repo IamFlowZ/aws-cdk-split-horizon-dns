@@ -1,5 +1,6 @@
 import { writeFile } from 'fs/promises';
 import * as cdk from 'aws-cdk-lib';
+import { Duration } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
@@ -67,6 +68,7 @@ describe('split horizon', () => {
       HostedZoneId: Match.objectLike({
         Ref: Match.stringLikeRegexp('PublicZone'),
       }),
+      TTL: '1800', // the default if no ttl is supplied
     });
   });
 
@@ -308,6 +310,35 @@ describe('split horizon', () => {
         DNSName: Match.anyValue(),
         HostedZoneId: Match.anyValue(),
       }),
+    });
+  });
+
+  it('sets the TTL of records if provided', () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, 'TestStack');
+    const vpc = new ec2.Vpc(stack, 'myvpc');
+
+    const firstTarget: AliasTarget = {
+      target: [googleDns],
+      public: true,
+      ttl: Duration.seconds(3600),
+    };
+
+    new SplitHorizonDns(stack, 'PublicATestConstruct', {
+      zoneName: 'example.com',
+      privateZoneVpcs: [vpc],
+      targets: [firstTarget],
+    });
+
+    const template = Template.fromStack(stack);
+
+    template.hasResourceProperties('AWS::Route53::RecordSet', {
+      Name: Match.stringLikeRegexp(`${exampleDomain}\.`),
+      Type: 'A',
+      HostedZoneId: Match.objectLike({
+        Ref: Match.stringLikeRegexp('PublicZone'),
+      }),
+      TTL: '3600',
     });
   });
 });

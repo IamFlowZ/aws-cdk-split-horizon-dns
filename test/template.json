@@ -21,8 +21,15 @@
         "VpcId": {
           "Ref": "myvpc632CA88B"
         },
-        "AvailabilityZone": "dummy1a",
-        "CidrBlock": "10.0.0.0/19",
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "CidrBlock": "10.0.0.0/18",
         "MapPublicIpOnLaunch": true,
         "Tags": [
           {
@@ -122,8 +129,15 @@
         "VpcId": {
           "Ref": "myvpc632CA88B"
         },
-        "AvailabilityZone": "dummy1b",
-        "CidrBlock": "10.0.32.0/19",
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "CidrBlock": "10.0.64.0/18",
         "MapPublicIpOnLaunch": true,
         "Tags": [
           {
@@ -217,115 +231,21 @@
         "myvpcPublicSubnet2RouteTableAssociation1BF1FAEB"
       ]
     },
-    "myvpcPublicSubnet3Subnet6352D232": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "VpcId": {
-          "Ref": "myvpc632CA88B"
-        },
-        "AvailabilityZone": "dummy1c",
-        "CidrBlock": "10.0.64.0/19",
-        "MapPublicIpOnLaunch": true,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "Public"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Public"
-          },
-          {
-            "Key": "Name",
-            "Value": "TestStack/myvpc/PublicSubnet3"
-          }
-        ]
-      }
-    },
-    "myvpcPublicSubnet3RouteTable7A3A1442": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "myvpc632CA88B"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "TestStack/myvpc/PublicSubnet3"
-          }
-        ]
-      }
-    },
-    "myvpcPublicSubnet3RouteTableAssociation212EEC13": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "myvpcPublicSubnet3RouteTable7A3A1442"
-        },
-        "SubnetId": {
-          "Ref": "myvpcPublicSubnet3Subnet6352D232"
-        }
-      }
-    },
-    "myvpcPublicSubnet3DefaultRouteEF1138EE": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "myvpcPublicSubnet3RouteTable7A3A1442"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "GatewayId": {
-          "Ref": "myvpcIGW2E52BF2F"
-        }
-      },
-      "DependsOn": [
-        "myvpcVPCGW8FDE359B"
-      ]
-    },
-    "myvpcPublicSubnet3EIP250C394C": {
-      "Type": "AWS::EC2::EIP",
-      "Properties": {
-        "Domain": "vpc",
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "TestStack/myvpc/PublicSubnet3"
-          }
-        ]
-      }
-    },
-    "myvpcPublicSubnet3NATGateway07EDA442": {
-      "Type": "AWS::EC2::NatGateway",
-      "Properties": {
-        "SubnetId": {
-          "Ref": "myvpcPublicSubnet3Subnet6352D232"
-        },
-        "AllocationId": {
-          "Fn::GetAtt": [
-            "myvpcPublicSubnet3EIP250C394C",
-            "AllocationId"
-          ]
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "TestStack/myvpc/PublicSubnet3"
-          }
-        ]
-      },
-      "DependsOn": [
-        "myvpcPublicSubnet3DefaultRouteEF1138EE",
-        "myvpcPublicSubnet3RouteTableAssociation212EEC13"
-      ]
-    },
     "myvpcPrivateSubnet1SubnetC2DB5FF8": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "VpcId": {
           "Ref": "myvpc632CA88B"
         },
-        "AvailabilityZone": "dummy1a",
-        "CidrBlock": "10.0.96.0/19",
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "CidrBlock": "10.0.128.0/18",
         "MapPublicIpOnLaunch": false,
         "Tags": [
           {
@@ -386,8 +306,15 @@
         "VpcId": {
           "Ref": "myvpc632CA88B"
         },
-        "AvailabilityZone": "dummy1b",
-        "CidrBlock": "10.0.128.0/19",
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "CidrBlock": "10.0.192.0/18",
         "MapPublicIpOnLaunch": false,
         "Tags": [
           {
@@ -442,68 +369,6 @@
         }
       }
     },
-    "myvpcPrivateSubnet3Subnet5D10AF27": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "VpcId": {
-          "Ref": "myvpc632CA88B"
-        },
-        "AvailabilityZone": "dummy1c",
-        "CidrBlock": "10.0.160.0/19",
-        "MapPublicIpOnLaunch": false,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "Private"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Private"
-          },
-          {
-            "Key": "Name",
-            "Value": "TestStack/myvpc/PrivateSubnet3"
-          }
-        ]
-      }
-    },
-    "myvpcPrivateSubnet3RouteTableD62F598B": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "myvpc632CA88B"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "TestStack/myvpc/PrivateSubnet3"
-          }
-        ]
-      }
-    },
-    "myvpcPrivateSubnet3RouteTableAssociationEA6A6A0D": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "myvpcPrivateSubnet3RouteTableD62F598B"
-        },
-        "SubnetId": {
-          "Ref": "myvpcPrivateSubnet3Subnet5D10AF27"
-        }
-      }
-    },
-    "myvpcPrivateSubnet3DefaultRouteEE4F2A64": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "myvpcPrivateSubnet3RouteTableD62F598B"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "NatGatewayId": {
-          "Ref": "myvpcPublicSubnet3NATGateway07EDA442"
-        }
-      }
-    },
     "myvpcIGW2E52BF2F": {
       "Type": "AWS::EC2::InternetGateway",
       "Properties": {
@@ -526,58 +391,13 @@
         }
       }
     },
-    "BucketWebsite189A8F5D": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {
-        "BucketName": "example.com",
-        "WebsiteConfiguration": {
-          "IndexDocument": "index.html"
-        }
-      },
-      "UpdateReplacePolicy": "Retain",
-      "DeletionPolicy": "Retain"
-    },
-    "BucketWebsitePolicyF24AE0DA": {
-      "Type": "AWS::S3::BucketPolicy",
-      "Properties": {
-        "Bucket": {
-          "Ref": "BucketWebsite189A8F5D"
-        },
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": "s3:GetObject",
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": "*"
-              },
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    {
-                      "Fn::GetAtt": [
-                        "BucketWebsite189A8F5D",
-                        "Arn"
-                      ]
-                    },
-                    "/*"
-                  ]
-                ]
-              }
-            }
-          ],
-          "Version": "2012-10-17"
-        }
-      }
-    },
-    "NeitherATestConstructPublicZone7B89F106": {
+    "PublicATestConstructPublicZoneCCF3F7D0": {
       "Type": "AWS::Route53::HostedZone",
       "Properties": {
         "Name": "example.com."
       }
     },
-    "NeitherATestConstructPrivateZoneA5879CCF": {
+    "PublicATestConstructPrivateZone5BDD7E4C": {
       "Type": "AWS::Route53::HostedZone",
       "Properties": {
         "Name": "example.com.",
@@ -586,23 +406,25 @@
             "VPCId": {
               "Ref": "myvpc632CA88B"
             },
-            "VPCRegion": "us-east-1"
+            "VPCRegion": {
+              "Ref": "AWS::Region"
+            }
           }
         ]
       }
     },
-    "NeitherATestConstructobjectObjectPrivateARecord16F4DBFB": {
+    "PublicATestConstruct8888PublicARecordFAD420DE": {
       "Type": "AWS::Route53::RecordSet",
       "Properties": {
         "Name": "example.com.",
         "Type": "A",
-        "AliasTarget": {
-          "DNSName": "s3-website-us-east-1.amazonaws.com",
-          "HostedZoneId": "Z3AQBSTGFYJSTF"
-        },
         "HostedZoneId": {
-          "Ref": "NeitherATestConstructPrivateZoneA5879CCF"
-        }
+          "Ref": "PublicATestConstructPublicZoneCCF3F7D0"
+        },
+        "ResourceRecords": [
+          "8.8.8.8"
+        ],
+        "TTL": "3600"
       }
     }
   },

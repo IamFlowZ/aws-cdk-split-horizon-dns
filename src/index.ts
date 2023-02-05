@@ -78,6 +78,7 @@ export class SplitHorizonDns extends Construct {
         const publicARecord = new route53.ARecord(this, `${curr.target.toString()}PublicARecord`, {
           zone: this.publicZone,
           target: target,
+          ttl: curr.ttl,
         });
         records.push(publicARecord);
       }
