@@ -6,6 +6,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   defaultReleaseBranch: 'main',
   name: 'aws-cdk-split-horizon-dns',
   repositoryUrl: 'https://github.com/iamflowz/aws-cdk-split-horizon-dns.git',
+  keywords: ['aws', 'cdk', 'dns', 'route53', 'awscdk'],
 
   // deps: [],                /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
