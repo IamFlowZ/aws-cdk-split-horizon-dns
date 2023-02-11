@@ -1,6 +1,9 @@
 # AWS CDK Split Horizon DNS Construct
+Small construct to help manage split-horizon DNS configs in AWS Route53
 
-Small construct to help manage split-horizon DNS configs in AWS Route53 
+[![npm version](https://badge.fury.io/js/aws-cdk-split-horizon-dns.svg)](https://badge.fury.io/js/aws-cdk-split-horizon-dns)
+
+[![View on Construct Hub](https://constructs.dev/badge?package=aws-cdk-split-horizon-dns)](https://constructs.dev/packages/aws-cdk-split-horizon-dns)
 
 ## Getting Started
 
