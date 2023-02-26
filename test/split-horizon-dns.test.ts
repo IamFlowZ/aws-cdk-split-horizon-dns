@@ -3,6 +3,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Duration } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import { SplitHorizonDns, AliasTarget } from '../src/index';
@@ -339,6 +340,113 @@ describe('split horizon', () => {
         Ref: Match.stringLikeRegexp('PublicZone'),
       }),
       TTL: '3600',
+    });
+  });
+
+  it('omits the private zone if disallowed', () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, 'TestStack');
+    new SplitHorizonDns(stack, 'MostBasicTestConstruct', {
+      zoneName: 'example.com',
+      disallowPrivateZone: true,
+      targets: [],
+    });
+
+    const template = Template.fromStack(stack);
+
+    template.hasResourceProperties('AWS::Route53::HostedZone', Match.not({
+      Name: Match.anyValue(),
+      VPCs: Match.arrayWith([
+        Match.objectLike({
+          VPCId: Match.anyValue(),
+        }),
+      ]),
+    }));
+
+    template.hasResourceProperties('AWS::Route53::HostedZone', {
+      Name: Match.anyValue(),
+    });
+  });
+
+  // this test is tricky. as there is no observable property of the record
+  it.skip('doesnt create private records if disallowed', () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, 'TestStack');
+
+    const firstTarget: AliasTarget = {
+      target: [googleDns],
+      private: true,
+      public: true,
+    };
+
+    new SplitHorizonDns(stack, 'MostBasicTestConstruct', {
+      zoneName: 'example.com',
+      disallowPrivateZone: true,
+      targets: [firstTarget],
+    });
+
+    // thing.records.forEach((record) => {
+    //   console.log(record);
+    // });
+  });
+
+  it('can receive an existing public zone', () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, 'TestStack');
+    const existingZone = new route53.PublicHostedZone(stack, 'ExistingPublicZone', {
+      zoneName: 'example.com',
+    });
+
+    const firstTarget: AliasTarget = {
+      target: [googleDns],
+      public: true,
+    };
+
+    new SplitHorizonDns(stack, 'MostBasicTestConstruct', {
+      zoneName: 'example.com',
+      existingPublicZone: existingZone,
+      targets: [firstTarget],
+    });
+
+    const template = Template.fromStack(stack);
+
+    template.hasResourceProperties('AWS::Route53::RecordSet', {
+      Name: Match.stringLikeRegexp(`${exampleDomain}\.`),
+      Type: 'A',
+      HostedZoneId: Match.objectLike({
+        Ref: Match.stringLikeRegexp('ExistingPublicZone'),
+      }),
+    });
+  });
+
+  it('can receive an existing private zone', () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, 'TestStack');
+    const vpc = new ec2.Vpc(stack, 'myvpc');
+    const existingZone = new route53.PrivateHostedZone(stack, 'ExistingPrivateZone', {
+      zoneName: 'example.com',
+      vpc,
+    });
+
+    const firstTarget: AliasTarget = {
+      target: [googleDns],
+      private: true,
+    };
+
+    new SplitHorizonDns(stack, 'MostBasicTestConstruct', {
+      zoneName: 'example.com',
+      existingPrivateZone: existingZone,
+      targets: [firstTarget],
+    });
+
+    const template = Template.fromStack(stack);
+
+    template.hasResourceProperties('AWS::Route53::RecordSet', {
+      Name: Match.stringLikeRegexp(`${exampleDomain}\.`),
+      Type: 'A',
+      HostedZoneId: Match.objectLike({
+        Ref: Match.stringLikeRegexp('ExistingPrivateZone'),
+      }),
     });
   });
 });
