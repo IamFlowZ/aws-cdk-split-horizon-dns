@@ -29,8 +29,8 @@ export interface AliasTarget {
  */
 export interface ISplitHorizonDnsProps {
   readonly zoneName: string;
-  readonly existingPublicZone?: route53.HostedZone;
-  readonly existingPrivateZone?: route53.HostedZone;
+  readonly existingPublicZone?: route53.IHostedZone;
+  readonly existingPrivateZone?: route53.IHostedZone;
   readonly disallowPrivateZone?: boolean;
   readonly certAlternateNames?: Array<string>;
   readonly privateZoneVpcs?: Array<ec2.Vpc>;
@@ -45,9 +45,9 @@ export interface ISplitHorizonDnsProps {
  * @property records The A records created
  */
 export class SplitHorizonDns extends Construct {
-  public publicZone: route53.HostedZone;
+  public publicZone: route53.IHostedZone;
 
-  public privateZone?: route53.HostedZone;
+  public privateZone?: route53.IHostedZone;
 
   public records: Array<ARecordArray>;
 
