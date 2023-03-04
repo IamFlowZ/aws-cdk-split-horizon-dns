@@ -29,6 +29,7 @@ export interface AliasTarget {
  */
 export interface ISplitHorizonDnsProps {
   readonly zoneName: string;
+  readonly recordName?: string;
   readonly existingPublicZone?: route53.IHostedZone;
   readonly existingPrivateZone?: route53.IHostedZone;
   readonly disallowPrivateZone?: boolean;
@@ -123,6 +124,7 @@ export class SplitHorizonDns extends Construct {
         const privateARecord = new route53.ARecord(this, `${curr.target.toString()}PrivateARecord`, {
           zone: this.privateZone,
           target: target,
+          recordName: props.recordName,
         });
         records.push(privateARecord);
       } else if (curr.private && !this.privateZone) {
