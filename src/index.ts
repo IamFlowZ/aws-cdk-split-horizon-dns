@@ -114,6 +114,7 @@ export class SplitHorizonDns extends Construct {
           zone: this.publicZone,
           target: target,
           ttl: curr.ttl,
+          recordName: props.recordName,
         });
         records.push(publicARecord);
       }
