@@ -219,6 +219,7 @@ public readonly ttl: Duration;
 | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.existingPublicZone">existingPublicZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.includeCertificate">includeCertificate</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.privateZoneVpcs">privateZoneVpcs</a></code> | <code>aws-cdk-lib.aws_ec2.Vpc[]</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.recordName">recordName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -299,6 +300,16 @@ public readonly privateZoneVpcs: Vpc[];
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.Vpc[]
+
+---
+
+##### `recordName`<sup>Optional</sup> <a name="recordName" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.recordName"></a>
+
+```typescript
+public readonly recordName: string;
+```
+
+- *Type:* string
 
 ---
 
