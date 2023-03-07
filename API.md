@@ -87,9 +87,9 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.publicZone">publicZone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.publicZone">publicZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.records">records</a></code> | <code>aws-cdk-lib.aws_route53.ARecord[][]</code> | *No description.* |
-| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.privateZone">privateZone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.SplitHorizonDns.property.privateZone">privateZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
 
 ---
 
@@ -108,10 +108,10 @@ The tree node.
 ##### `publicZone`<sup>Required</sup> <a name="publicZone" id="aws-cdk-split-horizon-dns.SplitHorizonDns.property.publicZone"></a>
 
 ```typescript
-public readonly publicZone: HostedZone;
+public readonly publicZone: IHostedZone;
 ```
 
-- *Type:* aws-cdk-lib.aws_route53.HostedZone
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
 
 ---
 
@@ -128,10 +128,10 @@ public readonly records: ARecord[][];
 ##### `privateZone`<sup>Optional</sup> <a name="privateZone" id="aws-cdk-split-horizon-dns.SplitHorizonDns.property.privateZone"></a>
 
 ```typescript
-public readonly privateZone: HostedZone;
+public readonly privateZone: IHostedZone;
 ```
 
-- *Type:* aws-cdk-lib.aws_route53.HostedZone
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
 
 ---
 
@@ -215,10 +215,11 @@ public readonly ttl: Duration;
 | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.zoneName">zoneName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.certAlternateNames">certAlternateNames</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.disallowPrivateZone">disallowPrivateZone</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.existingPrivateZone">existingPrivateZone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
-| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.existingPublicZone">existingPublicZone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.existingPrivateZone">existingPrivateZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.existingPublicZone">existingPublicZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.includeCertificate">includeCertificate</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.privateZoneVpcs">privateZoneVpcs</a></code> | <code>aws-cdk-lib.aws_ec2.Vpc[]</code> | *No description.* |
+| <code><a href="#aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.recordName">recordName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -265,20 +266,20 @@ public readonly disallowPrivateZone: boolean;
 ##### `existingPrivateZone`<sup>Optional</sup> <a name="existingPrivateZone" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.existingPrivateZone"></a>
 
 ```typescript
-public readonly existingPrivateZone: HostedZone;
+public readonly existingPrivateZone: IHostedZone;
 ```
 
-- *Type:* aws-cdk-lib.aws_route53.HostedZone
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
 
 ---
 
 ##### `existingPublicZone`<sup>Optional</sup> <a name="existingPublicZone" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.existingPublicZone"></a>
 
 ```typescript
-public readonly existingPublicZone: HostedZone;
+public readonly existingPublicZone: IHostedZone;
 ```
 
-- *Type:* aws-cdk-lib.aws_route53.HostedZone
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
 
 ---
 
@@ -299,6 +300,16 @@ public readonly privateZoneVpcs: Vpc[];
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.Vpc[]
+
+---
+
+##### `recordName`<sup>Optional</sup> <a name="recordName" id="aws-cdk-split-horizon-dns.ISplitHorizonDnsProps.property.recordName"></a>
+
+```typescript
+public readonly recordName: string;
+```
+
+- *Type:* string
 
 ---
 
